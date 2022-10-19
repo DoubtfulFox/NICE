@@ -1,0 +1,21 @@
+Dangerous Drives
+
+First I opened the Workstation-Desk instance. Then I opened up ClamWin and ran a virus scan on Drive E.
+
+After the scan completed, it detected 4 infected files.
+
+E:\school\IST25\valentinesday.ptt.vsx
+E:\thumb.ini
+E:\tux\extmenu.cfg
+E:\work\HRwork_files\permanent.tmp
+
+I then opened File Explorer, went to the E: drive and proceeded to delete the files. One of the files was hidden so I went to the "view" tab and check marked hidden files. Then I deleted the hidden file.
+
+After deleting the 4 hidden files I ran another scan on the E drive to double check.
+
+After the second scan, I realized the infected files were just sitting in the Recyle Bin so I made sure to permanently delete them. 
+
+After a 3rd scan, there was no more reported infected files.
+
+END
+

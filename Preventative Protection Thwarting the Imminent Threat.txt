@@ -1,0 +1,17 @@
+Preventative Protection: Thwarting the Imminent Threat
+
+
+I started by researching EternalBlue. How it works, what it does, and solutions to mediate the issue. The first thing I saw was to install the Microsoft Security Patch MS17-010. Doing this will disable the SMB v1 Protocol. 
+
+I started by booting up the Domain-Controller VM. I began updating the system as it had several updates ready to be downloaded and installed. After 3 cycles of downloading, installing, and restarting the server in hopes that one of the security patches would thwart the attack, it ultimately resulted in failing to prevent EternalBlue.
+
+I knew I needed to disable the SMB v1 protocol. I could manually do this by blocking the port #445 or disabling the protocol. The instructions say to not block port 445, so I had to disable SMB v1. 
+ 
+I started the Domain-Controller VM first. I then opened up PowerShell with administrator privileges. I entered in the following commands
+
+>Get-WindowsOptionalFeature -Online -FeatureName SMB1Protocol
+>Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol
+>Set-SmbServerConfiguration -EnableSMB1Protocol $false
+>Get-SmbServerConfiguration | Select EnableSMB1Protocol
+
+The terminal printed out that the SMBv1 protocol was disabled. I waited for the challenge to finish and I was successful.

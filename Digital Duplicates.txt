@@ -1,0 +1,61 @@
+Digital Duplicates
+
+
+First I opened Security-Desk workstation. I needed to know what unmounted drive was called. On the Desktop, I opened File Sysem. On the left menu, under Devices I saw "File System" and "261 MB Volume". I hovered my mouse over it and it was called /dev/sda. I had a feeling this was the unmounted drive I was looking for but to double check I opened a terminal and ran a command.
+
+>lsblk
+
+This command printed out all drives, mounted or unmounted. This again reaffirmed that the drive I am looking for is /dev/sda.
+
+Next I needed to check if the directory "/forensicimages" is already made. If not, I need to make a directory called "forensicimages" and then make an image of the drive using the "dd" command and name the image "forensicimage.dd".
+
+>cd /
+>ls /
+>sudo mkdir forensicimages
+>cd forensicimages
+>sudo dd if=/dev/sda of=forensicimage.dd
+> ls
+
+Now I needed to make SHA512 hashes of both the drive and of the forensicimages.dd file.
+
+> sudo sha512sum /dev/sda > drivehash.txt
+>sudo sha512sum orforensicimage.dd > forsensicimage_hash.txt
+>ls
+
+Now I need to verify the hashes are the same.
+
+>sudo apt install dcfldd
+>sudo dcfldd if=drive_hash.txt vf=forensicimage_hash.txt
+
+OR I can use a text editor command to verify. The Vimdiff command will highlight the differences in text.
+
+>vimdiff forensicimage_hash.txt drive_hash.txtvi
+#With this command, you must scroll right to the end to see all of the text. To exit you must use:
+>:q!
+>:q!
+
+
+End
+___________________________________
+
+
+Sources Used
+
+https://linuxconfig.org/Dd
+https://lindevs.com/generate-and-verify-sha-512-hash-of-file-in-linux/
+https://linuxhint.com/show-unmounted-drives-linux/
+https://vyliam.com/index.php/walkthroughs/nice-challenges/4-nice-challenge-28-digital-duplicates
+
+
+
+
+
+
+
+
+
+
+
+
+
+______________________________

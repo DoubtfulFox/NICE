@@ -1,0 +1,12 @@
+File Signatures Broke My Files
+
+
+I logged into Workstation-Desk vm and immediately opened Firefox browser to download WinHex, a graphics file editor for Windows. I edited the 1st offset of the "oh.jpg" file. I changed the file signature header to:
+(FF D8 FF E0 00 10 4A 46 49 46 00 01 01 01 00 48) and changed the trailer to
+ (FF D9) at offset 53C. I then saved the file and opened it with the proper application. The new jpg image didn't show me anything of value. 
+
+I then moved onto the "Definitelynotpassword" file. First I tried opening it, and just saw nonsense when opened. So, I took the file to a hex editor and viewed it there. After trying to use 7zip to extract the file I got a file called "[Content_Types]". I tried opening it and it displayed nothing. I then opened this file in a hex editor and got nothing. 
+
+I tried extracting the "Musthave.7z" file but was denied due to the password. I then right clicked that file and selected 7-Zip>Open archive. I was able to see the files I needed to extract for the challenge to be over. I tried doing the same thing with the "Definitelynotpassword" file. I right clicked and selected 7-Zip>Open Archive. Upon doing so it showed me other files and folders I hadn't seen before. I slowly began to open all the folders and files and viewing the contents. Eventually I opened the folder "word" and the file "document.xml". Inside this file was text about important passwords. There was a line that said "Important Zip file - File$ignatur3An4L1sys”. 
+
+I then again tried extracting the "Musthave.7z" file but entered "File$ignatur3An4L1sys" as the password and it worked. Then I extracted the 4 files from this zip file to the E drive. Problem solved.

@@ -1,0 +1,9 @@
+Security Begins & Never Ends with Updates [NG]
+
+First, I logged on the Backup server. I then updated the FTP service by using command, "sudo apt-get update && sudo apt-get upgrade".
+
+Next I logged onto the Domain-Controller. From there I opened Server Manager > Manage > Active Directory Users and Computers > daswebs.com > Users. I right clicked on "Guest" and selected "properties". Then I went to "Member Of" and highlighted Domain Admin and hit remove then apply.
+
+Next I logged onto the Workstation-Desk VM and went to a web browser. I typed in "joomla.daswebs.com/administrator". I signed in using the log-in credentials provided in the Challenge Info. I updated joomla to the newest version.
+
+

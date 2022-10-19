@@ -1,0 +1,40 @@
+Forensically Finding Files
+
+
+First I logged into Workstation-Desk where the suspected stolen files on a drive are. The drive is said to be hidden.
+
+I opened File Explorer and clicked on the "View" tab and checked the box "Hidden Items" and "File name extensions". That did not reveal a hidden drive. Next I googled how to hide drives. The first webpage told me that you can hide drives in Disk Management.
+
+Next I right clicked on Start and selected Disk Management. Upon opening Disk Management, I saw a volume named FlashDrive without a drive letter. I right clicked FlashDrive and selected "Change Drive Letter and Paths..." and gave it the Drive Letter (E:). 
+
+I went back to File Explorer and now I can see the hidden drive. I clicked on it to view the contents inside. I saw several folders and a file inside. I opened each folder and check the creation and last modified date of the files inside. The file "E:\Finances\JanPayChecks.txt" and "E:\Instructions.pdf" were modified after February 2020. These are 2 files I need to extract to Security-Desk.
+_________________
+Next I needed to transfer these files to Security-Desk without modifying them. opened command prompt and switched my working directory to E:\ and transferred the files to Security-Desk using the scp the command.
+
+>cd /d E:\
+>ls
+>Finances
+>ls
+>scp JanPayChecks.txt playerone@172.16.30.6:/home/playerone/Desktop/Evidence
+
+#I typed "yes" when asking about fingerprinting and I typed in the password to playerone. This successfully transferred the file to the security-desk. I did the same for the next file.
+
+>cd ..
+>scp Instrcutions.pdf playerone@172.16.30.6:/home/playerone/Desktop/Evidence
+#enter password
+
+Next I hopped onto the Security-Desk workstation and opened the "Evidence" folder. Inside I saw my 2 files I transferred. Now I needed to create an archive of the 2 files use a .tar compression method. I highlight both of the files and right clicked on one of them and selected "Create Archive..". This brought me to a Compress menu. Here I named the file "forarchive" and changed the file extension to ".tar". This created "forarchive.tar" file. I then dragged the file to the Desktop.
+
+Next I needed to scan the pdf using "pdfid". I used the command:
+>pdfid Instructions.pdf > pdfresults.txt
+
+This created the file in the "Evidence" folder. I dragged and dropped the file onto "Desktop".
+
+End. 
+_____________________________________
+Soruces Used:
+
+https://www.pragmaticlinux.com/2020/07/how-to-copy-files-via-ssh/
+https://www.minitool.com/data-recovery/how-to-hide-a-drive-in-windows-10.html
+https://www.configserverfirewall.com/windows-10/how-to-change-drive-in-cmd/
+https://www.youtube.com/watch?v=bhvhMg5aYKA

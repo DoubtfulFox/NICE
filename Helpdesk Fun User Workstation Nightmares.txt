@@ -1,0 +1,10 @@
+Helpdesk Fun: User Workstation Nightmares
+
+
+First, I logged into the Workstation-Desk VM. Immediately I wanted to fix the mouse because it was annoying. I clicked on the Start icon, > Settings > Devices > Mouse. Then changed the primary button from right to left. 
+
+Next I wanted to display desktop icons. I right clicked on the desktop, and clicked view. Then made sure to check mark "show desktops icons". 
+
+Next I wanted to map the HR network share to the H drive. I oped File Explorer. Clicked on Network>FILESHARE. Right clicked on "hr" and selected "Map network drive..." for the drive letter I selected "H" and I checked "Reconnect at sign-in" and unchecked "Connected using different credentials". I then clicked "Finish".
+
+Then I wanted to resolve the internet issue. I opened a browser and no connection. Then I opened the CMD prompt to troubleshoot some things. First I wanted to see if I could ping a website. I typed "ping google.com" and got no response. So then I wanted to see where the connection died. I typed "tracert google.com" and the farthest I was able to get out was to 172.31.2.1. Looking at the Network Map I can see that this is the ISP's IP address. So that means I have internet connection, but something is blocking me from accessing websites. I then went back to Settings > Network & Internet > Network troubleshooter. It could not provide a solution. Next I went to the Windows Security>Virus & Threat Protection. I saw that there was 1 threat found. I took action against it. Then performed another quick scan. After testing the internet again it still did not work. This time I noticed that the browser said "Can't connect to proxy server" with a button "Go to proxy settings". After clicking that I then turned off proxy server settings. That solved the issue. 

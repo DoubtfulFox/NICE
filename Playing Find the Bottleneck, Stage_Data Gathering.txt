@@ -1,0 +1,16 @@
+Playing Find the Bottleneck, Stage: Data Gathering
+
+
+I logged onto the Domain-Controller. I right clicked on the Start button and clicked "search". Then I searched for Performance Monitor. After opening Performance Monitor I added 4 counters. 
+
+\PhysicalDisk(_Total)\% Disk Read Time
+\PhysicalDisk(_Total)\% Disk Write Time
+\PhysicalDisk(_Total)\% Idle Time
+\PhysicalDisk(_Total)\Disk Bytes/sec
+
+I then ran the Performance Monitor then stopped after several minutes. I right clicked on the grap and selected "Save Settings As..." then saved the file under C:\PerfLogs\Admin\Disk_Report1.csv
+
+Next I searched up Crystal Disk Mark (64 bit) and launched the program. I clicked on "All" to start the program. After it was finished I clicked on File>Save (text).
+I saved the file under C:\PerfLogs\Admin\Disk_Report2.txt.
+
+That concludes the lab.

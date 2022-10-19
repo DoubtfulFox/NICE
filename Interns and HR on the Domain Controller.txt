@@ -1,0 +1,22 @@
+I opened an instance of Domain-Controller.
+
+Using Server Manager, I opened Active Directory Users and Computers.
+
+I added "gthatcher" to the Domain Admins security group.
+
+I created HRSec, AccountingSec security group and Miscellaneous security group.
+
+I added Sergio Chanel to HRSec, Brimlock Stones to AccountingSec, and all other users not accociated with those security groups or Domain Admins to Miscellaneous security group.
+
+I added Gary Thatcher to Domain Admins group.
+
+I disabled Rob's account. 
+
+Opened Windows File Explorer, turned on network discovery and file sharing. Went to Accounting Share and edited the permissions for Domain Admins to full control. Gave AccountSec read, write, list permissions. Denied all permissions on HRSec and Miscellaneous groups.
+
+Went to HR share and edited permissions for Domain Admins to full control. HRSec group has read, write, and list permissions. AccountSec and Miscallenous groups have been denied all permissions. 
+
+
+Then I went back to the user properties of Brimlock Stone and Sergio Chanel and under Account > Log On To... > I clicked on This user can only log on to the following computers: WORKSTATION > Add . Then apply changes. 
+
+END

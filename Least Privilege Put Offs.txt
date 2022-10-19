@@ -1,0 +1,43 @@
+Least Privilege Put Offs
+
+I logged onto the Domain-Controller first. I launched Server Manager then clicked on Tools>Active Directory Users and Computers.
+
+First I created 2 OUs by double clicking on daswebs.com then I right clicking in the field and selecting New>Organizational Unit. I named one "Accounting" and the other "Human Resources".
+
+Then I made 2 security groups. I did this by right clicking on the Accounting OU and selecting New>Group. I named the group AccountingSec. I did the same with the Human Resources OU and made a HRsec group. 
+
+Then I moved Brimlock Stone to the Accounting OU by right clicking on Users. I right clicked on Brimlock Stone and clicked "Move..." and I moved him to the Accounting OU. I did the same steps with Sergio Chanel except I added him to the Human Resources OU.
+
+Next I wanted to add Brimlock Stone to the AccountingSec. I naviagted to the Accounting OU and right clicked on AccountingSec. Then selected Members>Add... and typed Brimlock in "Enter the object names to select" field and hit "OK". I did the same steps with Sergio Chanel except added him to HRsec.
+
+Now I wanted to create an Accounting GPO and link it to the Accounting OU. I went back to the Server Manager dashboard and selected Tools>Group Policy Management. I expanded Forest>Domains>daswebs.com. I right clicked on Accounting OU and clicked "Create a GPO in this domain, and Link it here...". I named the GPO "Accounting". After creating the GPO I right clicked it and selected "Enforced". I did the same steps to create an "HR" GPO and linked it to the HR OU.  
+
+Now I wanted to map the Accounting share to drive letter T using a GPO. I did this by going to the Group Policy Management menu and I right clicked on the Accounting GPO and selected Edit. In the new GPO Editor window, I clicked:
+User Configuration>Preferences>Windows Settings> Drive Maps.
+In the Drive Maps window, I right clicked New>Mapped Drive. In the New Drive Properties Window under the General tab, I entered the file path for the Accounting file share: "\\FILESHARE\Accounting", selected "Reconnect" and used the drop down box to select drive letter T. Then I clicked on the Common tab and selected "Run in logged-on user's security context (user policy option)" and "Item-level targeting". Then I clicked on "Targeting...". In the Targeting Editor window, I clicked New Item>Organizational Unit. Then I used the "..." button to browse for the Accounting OU I made. I hit OK>Apply>Ok. I did the same steps for the HR file share but mapped it to drive H and linked it to the HR OU. 
+
+Adding a security group to a GPO. I once again went to the Group Policy Management dashboard. I clicked on the Accounting GPO I made previously. Under the Security Filtering, I clicked Add... and typed in AccountingSec. I did the same for HRsec and added it to the HR GPO. 
+
+
+Adding a Security group to a fileshare. I added the AccountingSec group to the Accounting fileshare using NTFS permissions. I first went to File Explorer>Network then right clicked Accoutning>Properties>Security>Edit>Add. In the field I typed AccountingSec. After adding the AccountingSec group to the fileshare, I hit Edit again. I then gave that group Full Control permissions. I hit Apply>Yes>Ok>Ok. 
+
+Restricting file permissions. I needed to restrict file permissions to only Brimlock Stone for the particular file "AccountingForecasts.ods" in the Accounting share. I have to use the Fileshare server to change the ACL settings for this task. First off, I had no idea where the "AccountingForecasts.ods" file was located. I executed the command:
+>sudo find -iname Account*
+The terminal printed out: /share/Accounting/AccountingForecasts.ods
+Now I know the directory path for the file so I can change the permissioned settings. To see the current ACL settings, I typed:
+>getfacl AccountingForecasts.ods
+
+Then I erased all the ACL settings for this file:
+>setfacl -b Acc*
+Then I added Brimlock Stones to the ACL settings of this file and gave him read, write, execute permissions.
+>setfacl -m u:DASWEBS\\bstones:rwx Acc*
+Then removed group, user, and other ACL settings too.
+>setfacl -m u::--- Acc*
+>setfacl -m g::--- Acc*
+>setfacl -m o::--- Acc*
+I rechecked the ACL settings again by using the command "getfacl Acc*".
+I repeated these same steps but for Sergio Chanel on the HR share for file EmployeePerformanceReviews.txt.
+
+This concludes the lab.
+
+

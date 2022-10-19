@@ -1,0 +1,13 @@
+Dangerous Drives Complexity 2
+
+
+First I opened the Workstation-Desk VM. I then went to the File Explorer and right clicked on the E: drive. I selected "Scan with ClamWin Free Antivirus". After the scan, I was presented with 4 infected files:
+
+E:\school\IST25\valentinesday.ptt.vsx
+E:\thumb.ini
+E:\tux\extmenu.cfg
+E:\work\HRwork_files\permanent.tmp
+
+After deleting those I inspected the desktop icon "Widows Security Essence" I right clicked the icon and selected "Properties". I saw the full target path "C:\Windows\System32\com\net\gov.bat" 
+
+I navigated to there then deleted the dll454 file that was causing the virus. Then went to the recyle bin and deleted all 5 files and finished the challenge. 

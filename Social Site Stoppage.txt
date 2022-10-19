@@ -1,0 +1,18 @@
+Social Site Stoppage
+
+I logged onto the Domain-Controller and opened up Server Manager. I then clicked on Tools>DNS. I expanded AD then opened Forward Lookup Zones. I right clicked on this and selected "New Zone...". 
+
+This opened the New Zone Wizard. 
+-I clicked Next
+-Primary zone
+ -"To all DNS servers running on domain controllers in this domain: daswebs.com
+-I named the zone youtube.com
+-Do not allow dynamic updates
+-Finish
+
+Once my new zone was made I expanded it and right clicked on youtube.com>New Host (A or AAAA)....
+Then in the New Host menu, I changed the IP address to 0.0.0.0 and clicked Add Host. 
+
+I did the same steps for twitter.com, instagram.com, and facebook.com. After make the 4 zones and adding new hosts, I then right clicked on Forward Lookup Zones>Refresh.
+
+This concludes the lab.

@@ -1,0 +1,32 @@
+Strengthening System Security
+
+
+On Security-Desk I wanted to generate a public/private key pair. I logged in as root. First I started by making a new directory to store the keys in. I typed "mkdir ~/.ssh" in the terminal. Then I changed the permissions "chmod 700 ~/.ssh". To generate the actual key I typed "ssh-keygen". Then hit enter to save the key in the default file. I did not make a password or passphrase either. I verified my keys were made by typing "ls -l ~/.ssh".
+
+On Workstation-Desk I created a key pair by using the terminal. I typed "ssh-keygen" followed by pressing enter to accept the default location and no passwords.
+
+On the Prod-Web server I made a new directory. I typed the command "mkdir ~/.ssh" then I changed file permissions of this directory by typing "chmod 700 ~/.ssh". I then created a file in the new directory. "touch authorized_keys" and changed the permissions "chmod 600 ~/.ssh/authorized_keys".
+
+I went back to the Security-Desk and I navigated to the newly created public key file by typing "cd /root/.ssh" then I dsplayed the content by typing "cat id_rsa.pub". I copied the text printed out.
+
+Next I went to add the public key to the server. I started first with the Security-Desk key. I typed "ssh-copy-id root@172.16.10.7". Then I moved onto the Workstation-Desk key. 
+
+Knowing that OpenSSH was already installed on the Workstation-Desk, I opened the "Services" mangement menu. I went to "OpenSSH Authentication Agent" and made sure to start the process. To confirm I ran the command "Get-Service ssh-agent". Next I entered the command "ssh-add $env:C\Users\playerone.DASWEBS\.ssh\id_rsa" to load my private key into the SSH agent. 
+To deploy the key to the Prod-Web server, I entered the following commands. "scp C:\Users\playerone.DASWEBS\\.ssh\id_rsa.pub root@172.16.10.7:~/.ssh/authorized_keys".
+
+Then I tested it both Workstation-Desk and Security-Desk by entering the command "ssh root@172.16.10.7" into each terminal. I successfully entered the server without a password. 
+
+Next I wanted to set up OTPW for the root user on the Backup server. I logged onto the server as root user. Then I ran the command "apt-get install libpam-otpw otpw-bin". Next I navigated to a file to make config changes. I got there by typing "cd /etc/pam.d" then "vi sshd". I commented out the line "@include common-auth". Then I added the lines 
+"#OTPW
+auth required pam_otpw.so
+session optional pam_otpw.so" to the end of the config file and saved it. 
+
+Next I navigated to the /etc/ssh/sshd_config" file. I edit the following lines
+"ChallengeResponseAuthentication yes
+PasswordAuthentication no
+PubkeyAuthentication yes
+UsePrivilegeSeparation yes" then saved and exited the file. Then restarted ssh by typing the command "/etc/init.d/ssh restart". 
+
+Next I wanted to generate some one-time passwords. I typed the command "otpw-gen --help" to see my options. I then typed "otpw-gen -h 20 -e 48 -p1". It asked for a prefix password and I entered it in. A one-time password list was generated. 
+
+DONE

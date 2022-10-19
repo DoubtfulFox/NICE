@@ -1,0 +1,45 @@
+Data Backup & Recovery, Definitely Worth Testing
+
+I logged onto the Database VM. First I opened the command prompt as Admin and typed mysql.
+
+Next I went to make a backup using the mysql command line utility that comes installed with MySQL. I entered the command:
+>show databases;
+This printed out all the MySQL databases. 
+
+Next I wanted to run mysqldump utility. I first need to navigate to where the "mysqldump" application is. I opened another command prompt and entered the following command
+>cd \
+>cd Program Data\scoop\apps\mysql\5.7.21\bin
+>mysqldump -u playerone -p wordpress > wordpress_backup.sql
+>[password for playerone]
+
+I verified my backup was creating by opening File Explorer and navigating to:
+C:\Program Data\scoop\apps\mysql\4.7.21\bin
+At the end of the "bin" folder I saw my backup. 
+
+Next I had to migrate the wordpress_backup.sql database to the Backup server. I booted up the server and navigated to the /var directory. From there I created 2 new subdirectories:
+>sudo mkdir /data
+>cd /data
+>sudo mkdir mysql
+
+Then I navigated to the /var/data/mysql directory.
+
+I went back to the Windows Server and migrated the backup to the Linux Server. I entered the command
+>src wordpres_backup.sql root@172.16.30.79:/var/data/mysql
+
+I went back to the Linux Server and verified the sql database transferred.
+>ls -l
+It has successfully transffered. 
+
+Next I went back to the Backup VM and created a new databased called "wordpresstest"
+On the command line I entered the following lines:
+>mysql -u root -p
+>[entered password for root]
+>show databases;
+>CREATE DATABASE wordpresstest;
+>[ctrl + C]
+
+Now I wanted to restore the "wordpress_backup.sql" database into the newly created "wordpresstest" db.
+> mysql -u root -p wordpresstest < wordpress_backup.sql
+>[password for root]
+
+I have successfully backedup the wordpress database, transferred it to the Backup server, and restored it into the wordpresstest db.
