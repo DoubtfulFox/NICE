@@ -1,0 +1,36 @@
+Insider Threat: Domain Lockdown Incoming
+
+I need to create a Group Policy Object under the daswebs.com domain and enforce a list of policies.
+
+1) I first logged onto the Domain-Controller and opened the Server Manager menu then clicked on tools then Group Policy Management. This opened the Group Policy Management window. Then I expanded the forest and domain. I right clicked on daswebs.com and clicked "Create a GPO in this domain, and Link it here...". I gave it the name "DasGroup". 
+
+2) Now I need to add the policies to the DasGroup GPO.
+
+To do this I right clicked on DasGroup GPO and selected "Edit..." on the left hand field. This opened the Group Policy Management Editor. Since we are configuring policies for individual users we will select "User Configuration".
+
+A)	Path to disable Run from the Start menu:
+	Policies> Administrative Templates > Start Menu and Taskbar > Remove Run menu from 	Start menu
+	-Hit "Enable" and "Apply" and "Ok"
+
+B) Path to disable external media access and forcing a reboot in 360 seconds:
+	Policies>Administrative Templates> System > Removable Storage Access>All 		Removable Storage classes: Deny all access
+	-Hit "Enable", "Apply" and "Ok"
+
+	Now at the top of this list of policies, find "Set time (in seconds) to force reboot"
+	-Hit "Enable" and under the "Options" field, we will enter in 360 for seconds until 		forced reboot. Hit "Apply" and "Ok".
+
+C) Now to disable the ability to map and remove network drives
+	Path to blocking map and network drive access
+	Policies>Administrative Templates>Windows Components>File Explorer>Remove 	"Map Network Drive" and "Disconnect Network Drive"
+	- We will click "Enable", "Apply" and "Ok".
+
+This concludes the lab.
+
+____________________
+Sources:
+
+https://social.technet.microsoft.com/Forums/windows/en-US/aafb22b5-9e1c-4e70-944c-cde51fc773be/gpo-to-block-mapping-network-drive
+
+https://social.technet.microsoft.com/Forums/windows/en-US/7e44790b-8d13-46cd-b24e-ae35eb1f7286/disable-run-in-gpo
+
+https://techexpert.tips/windows/gpo-disable-external-storage-devices/

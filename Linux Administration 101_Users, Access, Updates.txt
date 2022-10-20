@@ -1,0 +1,28 @@
+Linux Administration 101: Users, Access & Updates
+
+1) Make Gary Thatcher a user account on the Prod-Web server and name him "gthatcher".
+
+First we booted up the Prod-Web server and logged on. Then we entered the command 
+>sudo adduser gthatcher
+
+2) Give the new account sudo or admin privileges.
+
+We did this by editing the visudo file and adding gthatcher to it. We typed the following commands:
+>sudo visudo
+
+This opened the visudo file. We scroll to the bottom and added the following line to the file:
+>gthatcher ALL=(ALL) ALL
+
+We saved the file by hitting <esc> then typing:    :wq
+
+3) Now we need to update Apache web server. This was done by using the command:
+>sudo yum update
+
+End
+
+__________________________________
+Sources:
+
+https://www.techrepublic.com/article/how-to-quickly-give-users-sudo-privileges-in-linux/
+https://www.techrepublic.com/article/how-to-create-a-new-user-with-admin-privileges-on-linux/
+https://embeddedinventor.com/yum-update-explained-for-beginners/
