@@ -1,0 +1,99 @@
+Disguising a Dastardly Deed with Disappeared Data
+
+PART I:
+
+I am tasked with decrypting and unzipping the contents in the "exfiltratroll.zip" archive. 
+
+I first booted up the Workstation-Desk and opened File Explorer. I navigated to the "E:\Ione" and saw encrypted archive "exfiltratroll.zip". The zip archive was locked with a password. I wanted to use decryption tools to assist in opening this archive.
+
+In order to open the zip archive, I will need to crack the encryption. To do so I will use "pkcrack". I booted up the Security-Desk VM and logged in.
+
+Next, on the Workstation-Desk I opened firefox and downloaded FileZilla from "https://filezilla-project.org". After installing FileZilla, I opened the program. To transfer files from Windows to Kali, I gave input on the Host, Username, and Password fields then hit "Quickconnect".
+
+Host: sftp://playerone@172.16.30.6
+Username: playerone
+Password: password123
+
+After connecting to Kali through FileZilla, I then expanded E:\Ione and dragged the "exfiltratroll.zip" archive over to Kali and placed it on the "Desktop" directory.
+__________________________________
+PART II:
+Updating Kali and Downloading/Installing CMAKE and PKCRACK
+
+Next on the Kali VM, I ran the command:
+>sudo apt-get update
+
+Then I downloaded and installed CMAKE 
+>sudo apt show cmake
+>sudo apt install cmake g++ make 
+
+Then I installed pkcrack
+>git clone https://github.com/keyunluo/pkcrack
+>mkdir pkcrack/build
+>cd pkcrack/build
+>cmake ..
+>make
+_______________________________________________
+PART III:
+Understanding PKCRACK
+
+First, knowing how PKCRACK works is important. PKCRACK is a Known-Plaintext Attack (KPA). You must know the contents of one the files that is in the compressed, encrypted archive. When observing the contents of the "exfiltratroll.zip" archive on E:\Ione, I noticed there was a file called "astral.jpg". Inside of the folder "Ione" there is a file also called "astral.jpg" that is unencrypted. This is the key to solving this challenge. We have our known-plaintext file that we need. 
+In order to condense this information down, PKCRACK relies on 4 inputs: the encrypted archive (exfiltratroll.zip), the known-plaintext file inside of the encrypted archive (astral.jpg), an unencrypted archive (KnowFile.zip), and the known-plaintext file in the unencrypted archive (astral.jpg).
+
+1) Now let’s go back to Workstation-Desk, open FileZilla and drag the "astral.jpg" file over to Kali and drop it in the "Desktop" directory.
+
+2)Now we are going to create an archive and put "astral.jpg" in it.
+Go to the Security-Desk VM and open up a terminal and type in the command: (be in the Desktop directory):
+>7z a KnownFile.zip astral.jpg 
+
+______________________________
+ PART IV:
+Running PKCRACK
+
+1)Navigate to pkcrack/demo directory:
+>cd ..
+>cd pkcrack/demo
+(full pathway: /home/playerone/pkcrack/demo)
+
+2)Run pkcrack
+The command context is:
+ pkcrack -C encrypted-ZIP -c ciphertextname -P plaintext-ZIP -p plaintextname -d decrypted_file -a
+
+3)Here is what I actually entered in the terminal:
+>sudo ../bin/pkcrack -C /home/playerone/Desktop/exfiltratroll.zip -c astral.jpg -P /home/playerone/Desktop/KnowFile.zip -p astral.jpg -d /home/playerone/Desktop/REVEALED -a
+	
+	-C is the pathway to the encrypted.zip folder
+	-c is the name of the file that we know the contents of (no pathway) in the encrypted arhcive
+	-P is the pathway to the unencrypted.zip archive with the known-plaintext file
+	-p is the name of the file that we know the contents of (no pathway) in the unencrypted archive
+	-d outputs the contents of the encryped.zip archive into an unencrypted zip archive
+	-a .... not sure what this flag does but it's required
+
+4)After successfuly running pkcrack an archive will be made. I called it "RVEALED". It will be in the Desktop directory.
+5)Go to the Desktop directory and extract the contents from the "REVEALED" archive.
+	- this will display the 3 jpgs and 1 text file that were previously password protected. 
+____________________________
+PART V:
+Returning the files back to Workstation-Desk
+
+1) Go back to the Workstation-Desk VM and open FileZilla. Reconnect if you closed out, otherwise refresh the program using the refresh symbol.
+2)On the Security-Desk workstation we can open the Desktop folder and see the 4 new files. Drag and drop them onto the C:\ drive on the Workstation-Desk.
+
+FINISH
+
+
+
+
+
+
+
+
+___________________________________________
+Sources Used:
+
+https://www.linuxfordevices.com/tutorials/install-cmake-on-linux
+https://github.com/keyunluo/pkcrack
+https://www.youtube.com/watch?v=ZvYGd6qUjFU
+https://debug.plus/use-pkcrack-plaintext-to-crack-the-password-of-zip-compressed-file.html
+https://mattcasmith.net/2020/09/12/cracking-password-protected-zip-file-fcrackzip
+
+
