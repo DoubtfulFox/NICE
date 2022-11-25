@@ -13,6 +13,6 @@ This opened the New Zone Wizard.
 Once my new zone was made I expanded it and right clicked on youtube.com>New Host (A or AAAA)....
 Then in the New Host menu, I changed the IP address to 0.0.0.0 and clicked Add Host. 
 
-I did the same steps for twitter.com, instagram.com, and facebook.com. After make the 4 zones and adding new hosts, I then right clicked on Forward Lookup Zones>Refresh.
+I did the same steps for twitter.com, instagram.com, and facebook.com. After making the 4 zones and adding new hosts, I then right clicked on Forward Lookup Zones>Refresh.
 
 This concludes the lab.

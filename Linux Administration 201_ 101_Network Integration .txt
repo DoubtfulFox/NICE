@@ -1,0 +1,72 @@
+Linux Administration 201: 101 + Network Integration
+
+I am tasked with setting up a workstation and creating a user profile for an individual.
+First I booted up the Security-Desk VM and logged in as playerone.
+
+1) Change hostname to SecConsultantKali 
+   #sudo hostnamectl set-hostname SecConsultantKali.daswebs.com
+
+2) Change the hostname in /etc/hosts file
+   #sudo vi /etc/hosts
+    - type "i" to edit text. Comment out line "172.0.1.1 security-desk.daswebs.com	            security-desk" by preceding it with a "#"
+    - add the following text:
+   >127.0.0.1 SecConsultantKali.daswebs.com	SecConsultantKali
+    - Save and quit by hitting "Esc" and typing ":wq"
+
+3)  Add the DNS server to the local machine
+   #lsattr /etc/resolv.conf
+   #chattr -ie /etc/resolv.conf
+   #sudo vi /etc/resolv.conf
+    - edit the file by typing "i". Edit the first line to "nameserver 172.16.30.5"
+    -Save and quit by hitting "Esc" and typing ":wq"
+ 
+4) Set the IP address and subnet mask
+   #ifconfig
+   #sudo ifconfig eth0 up
+   #sudo ip addr add 172.16.30.6/24 dev eth0
+   #ifconfig
+
+5) Set the Default Gateway
+   #sudo ip route add default via 172.16.30.2 dev eth0
+
+6) Adding a DNS entry to the Domain Controller
+   - Boot up the Domain-Controller VM and log in as playerone.
+   a) Open Server Manager>Tools>DNS
+   b) Expand AD>Forward Lookup Zones>daswebs.com
+   c) Open daswebs.com and right click in the blank space and select "New Host (A or AAAA)..."
+   d)In the New Host window, set the Name to "SecConsultantKali" and set the IP address to 172.16.30.6
+   e) Then click Apply and OK.
+
+7) Creating the new account with home directory
+   #sudo useradd -m drandolph
+   #sudo passwd drandolph
+   >root
+   >root
+
+8) Giving the new account sudo privilage
+   #sudo visudo
+   - This opens the sudo file. Scroll to the bottom, type "i" to go into insert mode and add the text:
+   >drandolph ALL=(ALL) ALL
+   - Save and exit
+
+
+9) Change shell to bash
+   #sudo chmod 777 /etc/passwd
+   #sudo vi /etc/passwd
+   - Scroll to the bottom of the file until we get to "drandolph" and edit the last part of the line after the last "/" symbol to say "bash" instead of "sh"
+    -Save and exit
+     
+
+FINISH
+
+__________________________
+Sources Used:
+
+https://linuxhandbook.com/change-ip-address/
+https://www.howtogeek.com/799588/how-to-set-the-default-gateway-in-linux/
+https://ostechnix.com/create-home-directory-for-existing-user-in-linux/
+https://www.cyberciti.biz/faq/how-to-change-shell-to-bash/
+https://www.linuxfordevices.com/tutorials/linux/change-dns-on-linux
+https://linuxize.com/post/how-to-change-hostname-in-linux/
+https://linuxhandbook.com/sudo-unable-resolve-host/
+https://unixcop.com/how-to-change-a-users-shell-in-linux/

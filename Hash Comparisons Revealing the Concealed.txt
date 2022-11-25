@@ -11,7 +11,7 @@ My first objective was to get hashes of all the files in the folder Robby on the
 
 2) The second command creates a list of all the hashes and corresponding files of the the directory E:\Robby. Then I output the text into a new file called all_hashes.txt on the C: drive.
 
-3) Then I used nsrllookup command to compare the list of hashes (all_hashes.txt) to a NSRL database that contains known good hashes. Any hashes that did not match with the database were output to a file called "rds_misses.txt". I kept getting rejected trying to use the main nsrllookup server so I used the server on Security-Desk. The argument "-s security-desk" allowed me to use that database held on that server.
+3) Then I used nsrllookup command to compare the list of hashes (all_hashes.txt) to a NSRL database that contains known good hashes. Any hashes that did not match with the database were output to a file called "rds_misses.txt". I kept getting rejected trying to use the main nsrllookup server so I used the NSRL database server on Security-Desk. The argument "-s security-desk" allowed me to use that database held on that server.
 
 After getting the missed hashes I made a copy of rds_misses.txt and renamed it "hashes.txt" and made sure to save it on the C:\ drive.
 

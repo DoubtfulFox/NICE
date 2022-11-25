@@ -13,15 +13,15 @@ A)	Path to disable Run from the Start menu:
 	-Hit "Enable" and "Apply" and "Ok"
 
 B) Path to disable external media access and forcing a reboot in 360 seconds:
-	Policies>Administrative Templates> System > Removable Storage Access>All 		Removable Storage classes: Deny all access
+	Policies>Administrative Templates> System > Removable Storage Access>All Removable Storage classes: Deny all access
 	-Hit "Enable", "Apply" and "Ok"
 
 	Now at the top of this list of policies, find "Set time (in seconds) to force reboot"
-	-Hit "Enable" and under the "Options" field, we will enter in 360 for seconds until 		forced reboot. Hit "Apply" and "Ok".
+	-Hit "Enable" and under the "Options" field, we will enter in 360 for seconds until forced reboot. Hit "Apply" and "Ok".
 
 C) Now to disable the ability to map and remove network drives
 	Path to blocking map and network drive access
-	Policies>Administrative Templates>Windows Components>File Explorer>Remove 	"Map Network Drive" and "Disconnect Network Drive"
+	Policies>Administrative Templates>Windows Components>File Explorer>Remove "Map Network Drive" and "Disconnect Network Drive"
 	- We will click "Enable", "Apply" and "Ok".
 
 This concludes the lab.
